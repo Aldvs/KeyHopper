@@ -43,6 +43,9 @@
                                                 </fragment>
                                             </attributedString>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <segue destination="SKf-Yc-XRp" kind="presentation" modalPresentationStyle="fullScreen" id="W80-rA-KAl"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -59,7 +62,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-504" y="-610"/>
+            <point key="canvasLocation" x="-432" y="-610"/>
         </scene>
         <!--Master Key-->
         <scene sceneID="PTe-df-8au">
@@ -75,7 +78,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yYy-tW-lQG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="351" y="90"/>
+            <point key="canvasLocation" x="457" y="90"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Qw1-56-GHV">
@@ -93,7 +96,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ami-CW-m9B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="352" y="-610"/>
+            <point key="canvasLocation" x="457" y="-610"/>
         </scene>
         <!--Passwords Table View Controller-->
         <scene sceneID="CLa-Io-zVt">
