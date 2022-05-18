@@ -20,12 +20,12 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="uEi-PD-rd1">
                                 <rect key="frame" x="17" y="377" width="380" height="142"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xEk-y2-ZHr">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Логин" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xEk-y2-ZHr">
                                         <rect key="frame" x="0.0" y="0.0" width="380" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EoM-Xk-Jbh">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Пароль" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EoM-Xk-Jbh">
                                         <rect key="frame" x="0.0" y="42" width="380" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -33,7 +33,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVN-ID-8jB">
                                         <rect key="frame" x="0.0" y="84" width="380" height="58"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" buttonSize="large">
+                                        <buttonConfiguration key="configuration" style="plain" buttonSize="large">
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Войти">
                                                     <attributes>
@@ -154,7 +154,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="AccountCell" textLabel="qo2-MH-ekC" style="IBUITableViewCellStyleDefault" id="0iC-a1-QhO">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="AccountCell" textLabel="qo2-MH-ekC" style="IBUITableViewCellStyleDefault" id="0iC-a1-QhO" customClass="DataTableViewCell" customModule="KeyHopper" customModuleProvider="target">
                                 <rect key="frame" x="20" y="32" width="374" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0iC-a1-QhO" id="7kW-xC-F4p">
@@ -171,7 +171,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="XtV-vw-CBx" kind="show" identifier="editPassword" id="FXc-hU-uVl"/>
+                                    <segue destination="XtV-vw-CBx" kind="show" identifier="editData" id="FXc-hU-uVl"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -181,9 +181,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="goa-gy-IKc">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Cyg-yz-LAn">
+                        <barButtonItem key="rightBarButtonItem" title="Добавить" id="Cyg-yz-LAn">
                             <connections>
-                                <segue destination="XtV-vw-CBx" kind="presentation" identifier="addNewPassword" id="atq-rz-N7u"/>
+                                <segue destination="XtV-vw-CBx" kind="presentation" identifier="addData" id="atq-rz-N7u"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -195,12 +195,12 @@
         <!--Settings Table View Controller-->
         <scene sceneID="6M0-H2-Ui4">
             <objects>
-                <tableViewController id="WQA-yv-eco" customClass="SettingsTableViewController" customModule="KeyHopper" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController modalPresentationStyle="fullScreen" id="WQA-yv-eco" customClass="SettingsTableViewController" customModule="KeyHopper" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="fGp-G9-DhX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <sections>
-                            <tableViewSection headerTitle="Логин" id="th7-S8-Kx8">
+                            <tableViewSection headerTitle="Аккаунт" id="th7-S8-Kx8">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="35" id="Q7M-Se-CuC">
                                         <rect key="frame" x="20" y="49.5" width="374" height="35"/>
@@ -281,7 +281,10 @@
                             <outlet property="delegate" destination="WQA-yv-eco" id="dYx-Tl-OZT"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="ixm-Ij-ZnI"/>
+                    <navigationItem key="navigationItem" id="ixm-Ij-ZnI">
+                        <barButtonItem key="leftBarButtonItem" title="Свернуть" id="9Y5-BT-b13"/>
+                        <barButtonItem key="rightBarButtonItem" title="Сохранить" id="bpO-lN-dtF"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T0x-2o-Ule" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -312,7 +315,7 @@
         <!--Navigation Controller-->
         <scene sceneID="AYg-Ue-zOK">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="XtV-vw-CBx" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="XtV-vw-CBx" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="W2X-8a-qOY"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="XCe-gT-LrG">
@@ -330,7 +333,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="FXc-hU-uVl"/>
+        <segue reference="atq-rz-N7u"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="checkmark.shield" catalog="system" width="128" height="118"/>

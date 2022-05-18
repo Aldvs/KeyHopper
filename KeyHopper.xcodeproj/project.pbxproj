@@ -7,20 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8481B944283591850088FD0A /* DataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8481B943283591850088FD0A /* DataTableViewCell.swift */; };
+		8481B946283597860088FD0A /* SHAManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8481B945283597850088FD0A /* SHAManager.swift */; };
 		84F9B8C4282D3ADB009B97AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9B8C3282D3ADB009B97AC /* AppDelegate.swift */; };
 		84F9B8C6282D3ADB009B97AC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9B8C5282D3ADB009B97AC /* SceneDelegate.swift */; };
 		84F9B8C8282D3ADB009B97AC /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9B8C7282D3ADB009B97AC /* FormViewController.swift */; };
 		84F9B8CB282D3ADB009B97AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84F9B8C9282D3ADB009B97AC /* Main.storyboard */; };
 		84F9B8CD282D3ADF009B97AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84F9B8CC282D3ADF009B97AC /* Assets.xcassets */; };
 		84F9B8D0282D3ADF009B97AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84F9B8CE282D3ADF009B97AC /* LaunchScreen.storyboard */; };
-		84F9B8DD282D3C7E009B97AC /* PasswordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9B8DC282D3C7E009B97AC /* PasswordModel.swift */; };
+		84F9B8DD282D3C7E009B97AC /* StorageDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9B8DC282D3C7E009B97AC /* StorageDataModel.swift */; };
 		84F9B8DF282D9C56009B97AC /* PasswordsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9B8DE282D9C56009B97AC /* PasswordsTableViewController.swift */; };
 		84F9B8E1282D9E0A009B97AC /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9B8E0282D9E0A009B97AC /* SettingsTableViewController.swift */; };
 		84F9B8E5282D9E7A009B97AC /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9B8E4282D9E7A009B97AC /* DataManager.swift */; };
-		84F9B8E7282D9E89009B97AC /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9B8E6282D9E89009B97AC /* StorageManager.swift */; };
+		84F9B8E7282D9E89009B97AC /* CryptoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9B8E6282D9E89009B97AC /* CryptoManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8481B943283591850088FD0A /* DataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableViewCell.swift; sourceTree = "<group>"; };
+		8481B945283597850088FD0A /* SHAManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHAManager.swift; sourceTree = "<group>"; };
 		84F9B8C0282D3ADB009B97AC /* KeyHopper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyHopper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84F9B8C3282D3ADB009B97AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84F9B8C5282D3ADB009B97AC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -29,11 +33,11 @@
 		84F9B8CC282D3ADF009B97AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84F9B8CF282D3ADF009B97AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84F9B8D1282D3ADF009B97AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		84F9B8DC282D3C7E009B97AC /* PasswordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordModel.swift; sourceTree = "<group>"; };
+		84F9B8DC282D3C7E009B97AC /* StorageDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageDataModel.swift; sourceTree = "<group>"; };
 		84F9B8DE282D9C56009B97AC /* PasswordsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordsTableViewController.swift; sourceTree = "<group>"; };
 		84F9B8E0282D9E0A009B97AC /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		84F9B8E4282D9E7A009B97AC /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
-		84F9B8E6282D9E89009B97AC /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		84F9B8E6282D9E89009B97AC /* CryptoManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +84,7 @@
 		84F9B8D7282D3B5F009B97AC /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				84F9B8DC282D3C7E009B97AC /* PasswordModel.swift */,
+				84F9B8DC282D3C7E009B97AC /* StorageDataModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -125,6 +129,7 @@
 		84F9B8E2282D9E19009B97AC /* TableViewCells */ = {
 			isa = PBXGroup;
 			children = (
+				8481B943283591850088FD0A /* DataTableViewCell.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -133,7 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				84F9B8E4282D9E7A009B97AC /* DataManager.swift */,
-				84F9B8E6282D9E89009B97AC /* StorageManager.swift */,
+				84F9B8E6282D9E89009B97AC /* CryptoManager.swift */,
+				8481B945283597850088FD0A /* SHAManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -213,10 +219,12 @@
 				84F9B8C4282D3ADB009B97AC /* AppDelegate.swift in Sources */,
 				84F9B8E1282D9E0A009B97AC /* SettingsTableViewController.swift in Sources */,
 				84F9B8E5282D9E7A009B97AC /* DataManager.swift in Sources */,
-				84F9B8DD282D3C7E009B97AC /* PasswordModel.swift in Sources */,
+				8481B946283597860088FD0A /* SHAManager.swift in Sources */,
+				84F9B8DD282D3C7E009B97AC /* StorageDataModel.swift in Sources */,
 				84F9B8DF282D9C56009B97AC /* PasswordsTableViewController.swift in Sources */,
 				84F9B8C6282D3ADB009B97AC /* SceneDelegate.swift in Sources */,
-				84F9B8E7282D9E89009B97AC /* StorageManager.swift in Sources */,
+				8481B944283591850088FD0A /* DataTableViewCell.swift in Sources */,
+				84F9B8E7282D9E89009B97AC /* CryptoManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
