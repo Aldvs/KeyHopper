@@ -9,13 +9,19 @@ import UIKit
 
 class MasterKeyViewController: UIViewController {
 
+    @IBOutlet weak var keyImage: UIImageView!
+    @IBOutlet weak var checkMarkImage: UIImageView!
+    @IBOutlet weak var generateButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func getMasterKey() {
+    }
+    
     /*
     // MARK: - Navigation
 

@@ -9,6 +9,7 @@ import UIKit
 
 class PasswordsTableViewController: UITableViewController {
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,6 +20,11 @@ class PasswordsTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+    // MARK: - Navigation Methods
+    
+    @IBAction func unwindSegue(segue: UIStoryboardSegue) {
+        
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
