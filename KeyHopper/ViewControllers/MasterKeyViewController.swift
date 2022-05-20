@@ -13,15 +13,33 @@ class MasterKeyViewController: UIViewController {
     @IBOutlet weak var checkMarkImage: UIImageView!
     @IBOutlet weak var generateButton: UIButton!
     
+    private var masterKey = MasterKey.getMasterKey()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setupViewContorller()
     }
     
     @IBAction func getMasterKey() {
+        generateRandomMasterKey(masterKey: masterKey.key)
+        keyImage.isHidden = true
+        generateButton.isHidden = true
+        checkMarkImage.isHidden = false
     }
     
+    private func setupViewContorller() {
+        checkMarkImage.isHidden = true
+    }
+    
+    private func generateRandomMasterKey(masterKey key: String) {
+//        var resultMasterKey = ""
+        let shuffledKey = masterKey.key.shuffled()
+        masterKey.key = ""
+        for ch in shuffledKey {
+            masterKey.key.append(ch)
+        }
+        print(masterKey.key)
+    }
     /*
     // MARK: - Navigation
 

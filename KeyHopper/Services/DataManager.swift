@@ -13,11 +13,15 @@ class DataManager {
     
     let login = "User"
     let password = "Password"
-    
-    let masterKey = "8899aabbccddeeffrr11223344556677fedcba98765432100123456789abcdef"
-    
-    
-    
+
     private init() {}
     
+}
+
+struct MasterKey {
+    var key: String
+    
+    static func getMasterKey() -> MasterKey {
+        MasterKey(key: "8899aabbccddeeffrr11223344556677fedcba98765432100123456789abcdef")
+    }
 }
