@@ -23,12 +23,12 @@
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Логин" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xEk-y2-ZHr">
                                         <rect key="frame" x="0.0" y="0.0" width="380" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Пароль" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EoM-Xk-Jbh">
                                         <rect key="frame" x="0.0" y="42" width="380" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVN-ID-8jB">
                                         <rect key="frame" x="0.0" y="84" width="380" height="58"/>
@@ -44,8 +44,8 @@
                                             </attributedString>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="logIn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ttl-7t-SNe"/>
-                                            <segue destination="SKf-Yc-XRp" kind="presentation" modalPresentationStyle="fullScreen" id="W80-rA-KAl"/>
+                                            <action selector="logIn" destination="BYZ-38-t0r" eventType="touchUpInside" id="VAL-6u-3N9"/>
+                                            <segue destination="SKf-Yc-XRp" kind="presentation" identifier="showWelcomeVC" modalPresentationStyle="fullScreen" id="W80-rA-KAl"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -257,7 +257,7 @@
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LWW-M1-wg2">
                                                     <rect key="frame" x="16" y="0.0" width="342" height="35"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                     <connections>
                                                         <action selector="tetxChanged:" destination="WQA-yv-eco" eventType="editingChanged" id="2Ki-W9-4Sv"/>
                                                     </connections>

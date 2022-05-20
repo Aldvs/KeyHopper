@@ -16,7 +16,7 @@ struct UserData {
     var login: String
     var passwordForAuthorization: String
     
-    func getUserData() -> UserData {
+    static func getUserData() -> UserData {
         UserData(
             login: "user",
             passwordForAuthorization: "password")
