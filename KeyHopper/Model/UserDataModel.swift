@@ -19,7 +19,7 @@ struct UserData {
     func getUserData() -> UserData {
         UserData(
             login: "user",
-            passwordForAuthorization: "password")ç
+            passwordForAuthorization: "password")
     }
 }
 
