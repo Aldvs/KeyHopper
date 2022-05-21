@@ -11,7 +11,6 @@ struct CryptoManager {
     
     static var shared = CryptoManager()
     
-    
     private init() {}
 }
 
