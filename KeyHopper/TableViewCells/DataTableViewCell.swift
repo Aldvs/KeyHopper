@@ -10,4 +10,11 @@ import UIKit
 
 class DataTableViewCell: UITableViewCell {
     
+    //MARK: - IB Outlets
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    //MARK: - Public Methods
+    func set(object: UserData) {
+        self.nameLabel.text = object.nameOfAccount
+    }
 }

@@ -171,7 +171,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="AccountCell" textLabel="qo2-MH-ekC" style="IBUITableViewCellStyleDefault" id="0iC-a1-QhO" customClass="DataTableViewCell" customModule="KeyHopper" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="accountCell" textLabel="qo2-MH-ekC" style="IBUITableViewCellStyleDefault" id="0iC-a1-QhO" customClass="DataTableViewCell" customModule="KeyHopper" customModuleProvider="target">
                                 <rect key="frame" x="20" y="32" width="374" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0iC-a1-QhO" id="7kW-xC-F4p">
@@ -188,6 +188,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="nameLabel" destination="qo2-MH-ekC" id="shQ-49-2AC"/>
                                     <segue destination="XtV-vw-CBx" kind="show" identifier="editData" id="FXc-hU-uVl"/>
                                 </connections>
                             </tableViewCell>
@@ -310,12 +311,12 @@
                     <navigationItem key="navigationItem" id="ixm-Ij-ZnI">
                         <barButtonItem key="leftBarButtonItem" title="Свернуть" id="9Y5-BT-b13">
                             <connections>
-                                <segue destination="b08-Gl-FEc" kind="unwind" unwindAction="unwindSegueWithSegue:" id="ymC-ke-BMh"/>
+                                <segue destination="b08-Gl-FEc" kind="unwind" unwindAction="unwindSegueWithSegue:" id="HYv-M0-DzI"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Сохранить" id="bpO-lN-dtF">
                             <connections>
-                                <segue destination="b08-Gl-FEc" kind="unwind" unwindAction="unwindSegueWithSegue:" id="wfV-7y-MN2"/>
+                                <segue destination="b08-Gl-FEc" kind="unwind" identifier="saveSegue" unwindAction="unwindSegueWithSegue:" id="qdZ-iA-udi"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
