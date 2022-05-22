@@ -14,7 +14,7 @@ class DataTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     
     //MARK: - Public Methods
-    func set(object: UserData) {
-        self.nameLabel.text = object.nameOfAccount
+    func set(object: DataEntity) {
+        self.nameLabel.text = object.accountName
     }
 }
