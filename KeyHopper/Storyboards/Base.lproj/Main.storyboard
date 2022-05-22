@@ -175,11 +175,11 @@
                                 <rect key="frame" x="20" y="32" width="374" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0iC-a1-QhO" id="7kW-xC-F4p">
-                                    <rect key="frame" x="0.0" y="0.0" width="317" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="313.5" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qo2-MH-ekC">
-                                            <rect key="frame" x="20" y="0.0" width="289" height="43.5"/>
+                                            <rect key="frame" x="20" y="0.0" width="285.5" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                             <nil key="textColor"/>
@@ -316,6 +316,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Сохранить" id="bpO-lN-dtF">
                             <connections>
+                                <action selector="saveButtonPressed:" destination="WQA-yv-eco" id="8Dr-1z-Jdj"/>
                                 <segue destination="b08-Gl-FEc" kind="unwind" identifier="saveSegue" unwindAction="unwindSegueWithSegue:" id="qdZ-iA-udi"/>
                             </connections>
                         </barButtonItem>

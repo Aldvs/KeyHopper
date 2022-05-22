@@ -49,7 +49,7 @@ class StorageManager {
         completion(dataEntity)
         saveContext()
     }
-    func edit(_ entity: DataEntity, newName: String, newPassword: String, newHint: String) {
+    func edit(_ entity: DataEntity,newName: String, newPassword: String, newHint: String) {
         entity.accountName = newName
         entity.password = newPassword
         entity.hint = newHint

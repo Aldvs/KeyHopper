@@ -9,10 +9,12 @@ import UIKit
 
 class PasswordsTableViewController: UITableViewController {
  
-    var entityes = [
-        UserData(nameOfAccount: "sdfsdf", password: "sdfsdf", hint: "sdfsdfsdf", login: "sdfsdfsdf", passwordForAuthorization: "sdfsdfdsf"),
-        UserData(nameOfAccount: "1111111", password: "dfsfsdfs", hint: "111111", login: "dsfsdf", passwordForAuthorization: "sdfsdfsdfs")
-    ]
+//    var entityes = [
+//        UserData(nameOfAccount: "sdfsdf", password: "sdfsdf", hint: "sdfsdfsdf", login: "sdfsdfsdf", passwordForAuthorization: "sdfsdfdsf"),
+//        UserData(nameOfAccount: "1111111", password: "dfsfsdfs", hint: "111111", login: "dsfsdf", passwordForAuthorization: "sdfsdfsdfs")
+//    ]
+    var dataList: [DataEntity] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Ваши пароли"
@@ -20,35 +22,63 @@ class PasswordsTableViewController: UITableViewController {
         editButtonItem.title = "Редактировать"
         }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchData()
+        tableView.reloadData()
+    }
 
+    private func fetchData() {
+        StorageManager.shared.fetchData { result in
+            switch result {
+            case .success(let data):
+                self.dataList = data
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
     // MARK: - Navigation Methods
     
     @IBAction func unwindSegue(segue: UIStoryboardSegue) {
         guard segue.identifier == "saveSegue" else { return }
         let sourceVC = segue.source as! SettingsTableViewController
-        let entity = sourceVC.entity
         
-        if let selectedIndexPath = tableView.indexPathForSelectedRow{
-            entityes[selectedIndexPath.row] = entity
+        if let selectedIndexPath = tableView.indexPathForSelectedRow, let updatedData = sourceVC.editData {
+            dataList[selectedIndexPath.row] = updatedData
             tableView.reloadRows(at: [selectedIndexPath], with: .fade)
         } else {
-            let newIndexPath = IndexPath(row: entityes.count, section: 0)
-            entityes.append(entity)
-            tableView.insertRows(at: [newIndexPath], with: .fade)
+            let account = sourceVC.accountTextField.text ?? ""
+            let password = sourceVC.passwordTextField.text ?? ""
+            let hint = sourceVC.hintTextField.text ?? ""
+            StorageManager.shared.save(account, password, hint) { data in
+                data.accountName = account
+                data.password = password
+                data.hint = hint
+            }
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        guard segue.identifier == "editData" else { return }
+        if segue.identifier == "editData" {
+            
+            let indexPath = tableView.indexPathForSelectedRow!
+            let data = dataList[indexPath.row]
+            let navigationVC = segue.destination as! UINavigationController
+            let editDataVC = navigationVC.topViewController as! SettingsTableViewController
+            editDataVC.title = "Настройка"
+            editDataVC.editData = data
+            editDataVC.isEdit = true
+            
+        } else if segue.identifier == "addData" {
+            
+            let navigationVC = segue.destination as! UINavigationController
+            let addDataVC = navigationVC.topViewController as! SettingsTableViewController
+            addDataVC.title = "Новый аккаунт"
+            addDataVC.isEdit = false
+        }
         
-        let indexPath = tableView.indexPathForSelectedRow!
-        let entity = entityes[indexPath.row]
-        let navigationVC = segue.destination as! UINavigationController
-        let newEntityVC = navigationVC.topViewController as! SettingsTableViewController
-        
-        newEntityVC.entity = entity
-        newEntityVC.title = "Настройка"
     }
     
     //MARK: - Override wethods
@@ -69,15 +99,15 @@ class PasswordsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return entityes.count
+        return dataList.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "accountCell", for: indexPath) as! DataTableViewCell
 
-        let entity = entityes[indexPath.row]
-        cell.set(object: entity)
+        let data = dataList[indexPath.row]
+        cell.set(object: data)
         
         return cell
     }
@@ -88,9 +118,11 @@ class PasswordsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let data = dataList[indexPath.row]
         if editingStyle == .delete {
-            entityes.remove(at: indexPath.row)
+            dataList.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            StorageManager.shared.delete(data)
         }
     }
     
@@ -99,9 +131,9 @@ class PasswordsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        
-        let movedAccount = entityes.remove(at: sourceIndexPath.row)
-        entityes.insert(movedAccount, at: destinationIndexPath.row)
+
+        let movedAccount = dataList.remove(at: sourceIndexPath.row)
+        dataList.insert(movedAccount, at: destinationIndexPath.row)
         tableView.reloadData()
     }
 

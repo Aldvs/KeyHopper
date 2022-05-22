@@ -8,17 +8,19 @@
 import UIKit
 
 class SettingsTableViewController: UITableViewController {
-
+    
     @IBOutlet weak var accountTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var hintTextField: UITextField!
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
-    var entity = UserData(nameOfAccount: "", password: "", hint: "", login: "", passwordForAuthorization: "")
+    var editData: DataEntity!
+    var isEdit: Bool!
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateUI()
+        updateUI(isEdit)
         updateSaveButtonState()
     }
     
@@ -30,31 +32,40 @@ class SettingsTableViewController: UITableViewController {
     private func updateSaveButtonState() {
         let accountText = accountTextField.text ?? ""
         let passwordText = passwordTextField.text ?? ""
-//        let hintText = hintTextField.text ?? ""
+        //        let hintText = hintTextField.text ?? ""
         
         saveButton.isEnabled = !accountText.isEmpty && !passwordText.isEmpty
         
     }
     
-    private func updateUI() {
-        accountTextField.text = entity.nameOfAccount
-        passwordTextField.text = entity.password
-        hintTextField.text = entity.hint
+    private func updateUI(_ editMode: Bool) {
+        
+        if isEdit {
+            accountTextField.text = editData.accountName ?? ""
+            passwordTextField.text = editData.password ?? ""
+            hintTextField.text = editData.hint ?? ""
+        } else {
+            accountTextField.text = ""
+            passwordTextField.text = ""
+            hintTextField.text = ""
+
+        }
     }
-    
- 
+
     //MARK: - Override Methods
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         guard segue.identifier == "saveSegue" else { return }
         
-        let name = accountTextField.text ?? ""
-        let password = passwordTextField.text ?? ""
-        let hint = hintTextField.text ?? ""
-        
-        self.entity = UserData(nameOfAccount: name, password: password, hint: hint, login: "", passwordForAuthorization: "")
-        
+        if let name = accountTextField.text, let password = passwordTextField.text , let hint = hintTextField.text, let newData = editData{
+            StorageManager.shared.edit(newData, newName: name, newPassword: password, newHint: hint)
+
+        }
+
     }
 
-
 }
+
+
+
+
