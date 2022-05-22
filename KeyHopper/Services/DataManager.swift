@@ -18,10 +18,10 @@ class DataManager {
     
 }
 
-struct MasterKey {
+struct MainKey {
     var key: String
     
-    static func getMasterKey() -> MasterKey {
-        MasterKey(key: "8899aabbccddeeffrr11223344556677fedcba98765432100123456789abcdef")
+    static func getMainKey() -> MainKey {
+        MainKey(key: "8899aabbccddeeffrr11223344556677fedcba98765432100123456789abcdef")
     }
 }

@@ -36,16 +36,17 @@ class FormViewController: UIViewController {
             showAlert(title: "Пустое поле пароля", message: "Пожалуйста, введите пароль")
             return
         }
+        print(inputPassText)
+        let passCheck = SHAManager.shared.getHash(from: inputPassText)
+        print(passCheck)
         
-        if inputUserText == user.login && inputPassText == user.passwordForAuthorization {
+        if inputUserText == user.login && passCheck == user.passwordForAuthorization {
             return
         } else {
             showAlert(title: "Неверный логин или пароль", message: "Пожалуйста проверьте данные")
             passwordTextField.text = ""
         }
     }
-    
-
 }
 
 extension FormViewController {
