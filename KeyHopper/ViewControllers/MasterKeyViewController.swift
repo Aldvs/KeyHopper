@@ -13,7 +13,7 @@ class MasterKeyViewController: UIViewController {
     @IBOutlet weak var checkMarkImage: UIImageView!
     @IBOutlet weak var generateButton: UIButton!
     
-    private var masterKey = MasterKey.getMasterKey()
+    private var masterKey = MainKey.getMainKey()
     
     override func viewDidLoad() {
         super.viewDidLoad()
