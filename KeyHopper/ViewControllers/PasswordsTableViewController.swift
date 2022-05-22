@@ -44,27 +44,41 @@ class PasswordsTableViewController: UITableViewController {
         guard segue.identifier == "saveSegue" else { return }
         let sourceVC = segue.source as! SettingsTableViewController
         
-        let account = sourceVC.accountTextField.text ?? ""
-        let password = sourceVC.passwordTextField.text ?? ""
-        let hint = sourceVC.hintTextField.text ?? ""
-        StorageManager.shared.save(account, password, hint) { data in
-            data.accountName = account
-            data.password = password
-            data.hint = hint
+        if let selectedIndexPath = tableView.indexPathForSelectedRow, let updatedData = sourceVC.editData {
+            dataList[selectedIndexPath.row] = updatedData
+            tableView.reloadRows(at: [selectedIndexPath], with: .fade)
+        } else {
+            let account = sourceVC.accountTextField.text ?? ""
+            let password = sourceVC.passwordTextField.text ?? ""
+            let hint = sourceVC.hintTextField.text ?? ""
+            StorageManager.shared.save(account, password, hint) { data in
+                data.accountName = account
+                data.password = password
+                data.hint = hint
+            }
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
-        guard segue.identifier == "editData" else { return }
-//
-        let indexPath = tableView.indexPathForSelectedRow!
-        let data = dataList[indexPath.row]
-//        let navigationVC = segue.destination as! UINavigationController
-//        let newEntityVC = navigationVC.topViewController as! SettingsTableViewController
-//
-//        newEntityVC.entity = entity
-//        newEntityVC.title = "Настройка"
+        if segue.identifier == "editData" {
+            
+            let indexPath = tableView.indexPathForSelectedRow!
+            let data = dataList[indexPath.row]
+            let navigationVC = segue.destination as! UINavigationController
+            let editDataVC = navigationVC.topViewController as! SettingsTableViewController
+            editDataVC.title = "Настройка"
+            editDataVC.editData = data
+            editDataVC.isEdit = true
+            
+        } else if segue.identifier == "addData" {
+            
+            let navigationVC = segue.destination as! UINavigationController
+            let addDataVC = navigationVC.topViewController as! SettingsTableViewController
+            addDataVC.title = "Новый аккаунт"
+            addDataVC.isEdit = false
+        }
+        
     }
     
     //MARK: - Override wethods
