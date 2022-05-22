@@ -133,18 +133,8 @@ class PasswordsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
 
         let movedAccount = dataList.remove(at: sourceIndexPath.row)
-        StorageManager.shared.delete(movedAccount)
         dataList.insert(movedAccount, at: destinationIndexPath.row)
         tableView.reloadData()
-        let readyAccount = dataList[destinationIndexPath.row]
-        let account = readyAccount.accountName ?? ""
-        let password = readyAccount.password ?? ""
-        let hint = readyAccount.hint ?? ""
-        StorageManager.shared.save(account, password, hint) { data in
-            data.accountName = account
-            data.password = password
-            data.hint = hint
-        }
     }
 
 }

@@ -5,7 +5,12 @@
         <attribute name="hint" optional="YES" attributeType="String"/>
         <attribute name="password" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="MasterKey" representedClassName="MasterKey" syncable="YES" codeGenerationType="class">
+        <attribute name="flag" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="key" optional="YES" attributeType="String"/>
+    </entity>
     <elements>
         <element name="DataEntity" positionX="-54" positionY="-9" width="128" height="74"/>
+        <element name="MasterKey" positionX="-54" positionY="18" width="128" height="59"/>
     </elements>
 </model>
