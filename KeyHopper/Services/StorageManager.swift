@@ -71,5 +71,29 @@ class StorageManager {
             }
         }
     }
+    
+    func fetchKey(complition: (Result<[MasterKey], Error>) -> Void) {
+        let fetchRequest = MasterKey.fetchRequest()
+
+        do {
+            let key = try viewContext.fetch(fetchRequest)
+            complition(.success(key))
+        } catch let error {
+            complition(.failure(error))
+        }
+    }
+    
+    func save(_ key: String, _ flag: Bool, completion: (MasterKey) -> Void) {
+        let keyEntity = MasterKey(context: viewContext)
+        keyEntity.flag = flag
+        keyEntity.key = key
+        completion(keyEntity)
+        saveContext()
+    }
+    
+    func delete(_ masterEntity: MasterKey) {
+        viewContext.delete(masterEntity)
+        saveContext()
+    }
 }
 
