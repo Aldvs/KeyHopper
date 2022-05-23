@@ -15,6 +15,7 @@ class SettingsTableViewController: UITableViewController {
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
+    var keyList: [MasterKey] = []
     var editData: DataEntity!
     var isEdit: Bool!
     var button = UIButton(type: .custom)
@@ -24,6 +25,7 @@ class SettingsTableViewController: UITableViewController {
         updateUI(isEdit)
         updateSaveButtonState()
         setupEyeButton()
+        fetchKey()
     }
     
     @IBAction func tetxChanged(_ sender: Any) {
@@ -34,6 +36,17 @@ class SettingsTableViewController: UITableViewController {
         (sender as! UIButton).isSelected = !(sender as! UIButton).isSelected
         let senderValue = (sender as! UIButton).isSelected
         toggleEyeButton(senderValue)
+    }
+    
+    private func fetchKey() {
+        StorageManager.shared.fetchKey { result in
+            switch result {
+            case .success(let keys):
+                self.keyList = keys
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     func setupEyeButton() {
@@ -74,15 +87,19 @@ class SettingsTableViewController: UITableViewController {
         let passwordText = passwordTextField.text ?? ""
         //        let hintText = hintTextField.text ?? ""
         
-        saveButton.isEnabled = !accountText.isEmpty && !passwordText.isEmpty
+        saveButton.isEnabled = !accountText.isEmpty && !passwordText.isEmpty && passwordText.count == 32
         
     }
     
     private func updateUI(_ editMode: Bool) {
         
-        if isEdit {
+        if isEdit
+//            , let decrypredPass = editData.password, let masterKey = keyList[0].key
+        {
             accountTextField.text = editData.accountName ?? ""
             passwordTextField.text = editData.password ?? ""
+//            CryptoManager.shared.decryptionFunc(entireText: decrypredPass, master: masterKey)
+            print(passwordTextField.text ?? "decrypted string")
             hintTextField.text = editData.hint ?? ""
         } else {
             accountTextField.text = ""

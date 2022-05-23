@@ -9,20 +9,33 @@ import UIKit
 
 class PasswordsTableViewController: UITableViewController {
  
-
     var dataList: [DataEntity] = []
-
+    var keyList: [MasterKey] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Ваши пароли"
         self.navigationItem.leftBarButtonItem = editButtonItem
         editButtonItem.title = "Редактировать"
+
         }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchData()
+        fetchKey()
         tableView.reloadData()
+    }
+
+    private func fetchKey() {
+        StorageManager.shared.fetchKey { result in
+            switch result {
+            case .success(let keys):
+                self.keyList = keys
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 
     private func fetchData() {
@@ -48,7 +61,10 @@ class PasswordsTableViewController: UITableViewController {
             let account = sourceVC.accountTextField.text ?? ""
             let password = sourceVC.passwordTextField.text ?? ""
             let hint = sourceVC.hintTextField.text ?? ""
-            StorageManager.shared.save(account, password, hint) { data in
+            guard let masterKey = keyList[0].key else { return }
+            let securedPassword = CryptoManager.shared.encryptionFunc(block: password, master: masterKey)
+            print(securedPassword)
+            StorageManager.shared.save(account, securedPassword, hint) { data in
                 data.accountName = account
                 data.password = password
                 data.hint = hint

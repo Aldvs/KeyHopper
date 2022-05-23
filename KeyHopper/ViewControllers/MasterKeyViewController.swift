@@ -20,9 +20,13 @@ class MasterKeyViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchKey()
+//        deleteKey()
         setupViewContorller()
     }
     
+//    private func deleteKey() {
+//        StorageManager.shared.delete(keyList[0])
+//    }
     
     private func fetchKey() {
         StorageManager.shared.fetchKey { result in
@@ -64,13 +68,14 @@ class MasterKeyViewController: UIViewController {
     }
     
     private func generateRandomMasterKey(masterKey key: String) -> String {
-        var resultKey = ""
-        let shuffledKey = mainKey.key.shuffled()
-        mainKey.key = ""
-        for ch in shuffledKey {
-            resultKey.append(ch)
-        }
-        return resultKey
+//        var resultKey = ""
+//        let shuffledKey = mainKey.key.shuffled()
+//        mainKey.key = ""
+//        for ch in shuffledKey {
+//            resultKey.append(ch)
+//        }
+//        return resultKey
+        return key
 //        print(mainKey.key)
     }
 }
