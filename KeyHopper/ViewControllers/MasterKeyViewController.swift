@@ -13,41 +13,64 @@ class MasterKeyViewController: UIViewController {
     @IBOutlet weak var checkMarkImage: UIImageView!
     @IBOutlet weak var generateButton: UIButton!
     
-    private var masterKey = MainKey.getMainKey()
+    private var mainKey = MainKey.getMainKey()
+    
+    var keyList: [MasterKey] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchKey()
         setupViewContorller()
     }
     
+    
+    private func fetchKey() {
+        StorageManager.shared.fetchKey { result in
+            switch result {
+            case .success(let keys):
+                self.keyList = keys
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     @IBAction func getMasterKey() {
-        generateRandomMasterKey(masterKey: masterKey.key)
+        
         keyImage.isHidden = true
         generateButton.isHidden = true
         checkMarkImage.isHidden = false
+        
+        let flag = true
+        let key = generateRandomMasterKey(masterKey: mainKey.key)
+
+        StorageManager.shared.save(key, flag) { masterKey in
+            masterKey.key = key
+            masterKey.flag = flag
+        }
+        
     }
     
     private func setupViewContorller() {
-        checkMarkImage.isHidden = true
+        
+        if keyList.isEmpty {
+            checkMarkImage.isHidden = true
+        } else {
+            keyImage.isHidden = true
+            generateButton.isHidden = true
+            checkMarkImage.isHidden = false
+            print(keyList[0].key ?? "")
+        }
     }
     
-    private func generateRandomMasterKey(masterKey key: String) {
-//        var resultMasterKey = ""
-        let shuffledKey = masterKey.key.shuffled()
-        masterKey.key = ""
+    private func generateRandomMasterKey(masterKey key: String) -> String {
+        var resultKey = ""
+        let shuffledKey = mainKey.key.shuffled()
+        mainKey.key = ""
         for ch in shuffledKey {
-            masterKey.key.append(ch)
+            resultKey.append(ch)
         }
-        print(masterKey.key)
+        return resultKey
+//        print(mainKey.key)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

@@ -9,10 +9,7 @@ import UIKit
 
 class PasswordsTableViewController: UITableViewController {
  
-//    var entityes = [
-//        UserData(nameOfAccount: "sdfsdf", password: "sdfsdf", hint: "sdfsdfsdf", login: "sdfsdfsdf", passwordForAuthorization: "sdfsdfdsf"),
-//        UserData(nameOfAccount: "1111111", password: "dfsfsdfs", hint: "111111", login: "dsfsdf", passwordForAuthorization: "sdfsdfsdfs")
-//    ]
+
     var dataList: [DataEntity] = []
 
     override func viewDidLoad() {
