@@ -17,15 +17,55 @@ class SettingsTableViewController: UITableViewController {
     
     var editData: DataEntity!
     var isEdit: Bool!
-        
+    var button = UIButton(type: .custom)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI(isEdit)
         updateSaveButtonState()
+        setupEyeButton()
     }
     
     @IBAction func tetxChanged(_ sender: Any) {
         updateSaveButtonState()
+    }
+    
+    @IBAction func btnPasswordVisibilityClicked(_ sender: Any) {
+        (sender as! UIButton).isSelected = !(sender as! UIButton).isSelected
+        let senderValue = (sender as! UIButton).isSelected
+        toggleEyeButton(senderValue)
+    }
+    
+    func setupEyeButton() {
+        
+        passwordTextField.rightViewMode = .unlessEditing
+        
+        let boldConfig = UIImage.SymbolConfiguration(weight: .light)
+        let boldSearch = UIImage(systemName: "eye.slash", withConfiguration: boldConfig)
+        
+        button.setImage(boldSearch, for: .normal)
+        button.tintColor = .black
+        button.addTarget(self, action: #selector(self.btnPasswordVisibilityClicked(_:)), for: .touchUpInside)
+        
+        passwordTextField.rightView = button
+        passwordTextField.rightViewMode = .always
+        passwordTextField.isSecureTextEntry = true
+        
+    }
+    
+    func toggleEyeButton(_ senderValue: Bool) {
+        if senderValue {
+            self.passwordTextField.isSecureTextEntry = false
+            let boldConfig = UIImage.SymbolConfiguration(weight: .light)
+            let boldSearch = UIImage(systemName: "eye", withConfiguration: boldConfig)
+            button.setImage(boldSearch, for: .normal)
+        } else {
+            self.passwordTextField.isSecureTextEntry = true
+            let boldConfig = UIImage.SymbolConfiguration(weight: .light)
+            let boldSearch = UIImage(systemName: "eye.slash", withConfiguration: boldConfig)
+            button.setImage(boldSearch, for: .normal)
+        }
+
     }
     
     //MARK: - Private Methods

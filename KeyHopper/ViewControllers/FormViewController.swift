@@ -12,14 +12,54 @@ class FormViewController: UIViewController {
     //MARK: - IBOutlets
     @IBOutlet weak var loginTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-
+    
+    let button = UIButton(type: .custom)
     //MARK: - Private properties
     private let user = UserData.getUserData()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupEyeButton()
     }
 
+    @IBAction func btnPasswordVisibilityClicked(_ sender: Any) {
+        (sender as! UIButton).isSelected = !(sender as! UIButton).isSelected
+        let senderValue = (sender as! UIButton).isSelected
+        toggleEyeButton(senderValue)
+    }
+    
+    func setupEyeButton() {
+        
+        passwordTextField.rightViewMode = .unlessEditing
+        
+        let boldConfig = UIImage.SymbolConfiguration(weight: .light)
+        let boldSearch = UIImage(systemName: "eye.slash", withConfiguration: boldConfig)
+        
+        button.setImage(boldSearch, for: .normal)
+        button.tintColor = .black
+        button.addTarget(self, action: #selector(self.btnPasswordVisibilityClicked(_:)), for: .touchUpInside)
+        
+        passwordTextField.rightView = button
+        passwordTextField.rightViewMode = .always
+        passwordTextField.isSecureTextEntry = true
+        
+    }
+    
+    func toggleEyeButton(_ senderValue: Bool) {
+        if senderValue {
+            self.passwordTextField.isSecureTextEntry = false
+            let boldConfig = UIImage.SymbolConfiguration(weight: .light)
+            let boldSearch = UIImage(systemName: "eye", withConfiguration: boldConfig)
+            button.setImage(boldSearch, for: .normal)
+        } else {
+            self.passwordTextField.isSecureTextEntry = true
+            let boldConfig = UIImage.SymbolConfiguration(weight: .light)
+            let boldSearch = UIImage(systemName: "eye.slash", withConfiguration: boldConfig)
+            button.setImage(boldSearch, for: .normal)
+        }
+
+    }
+    
     @IBAction func logIn() {
         
         guard let inputUserText = loginTextField.text, !inputUserText.isEmpty else {
@@ -36,9 +76,8 @@ class FormViewController: UIViewController {
             showAlert(title: "Пустое поле пароля", message: "Пожалуйста, введите пароль")
             return
         }
-        print(inputPassText)
+        
         let passCheck = SHAManager.shared.getHash(from: inputPassText)
-        print(passCheck)
         
         if inputUserText == user.login && passCheck == user.passwordForAuthorization {
             return
