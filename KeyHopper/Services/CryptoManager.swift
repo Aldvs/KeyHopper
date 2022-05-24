@@ -11,9 +11,9 @@ class CryptoManager {
     
     static var shared = CryptoManager()
     
-    var openText = "1122334455667700ffeeddccbbaa9988"
-    
-    var fullKey = "8899aabbccddeeff0011223344556677fedcba98765432100123456789abcdef"
+//    var openText = "1122334455667700ffeeddccbbaa9988"
+//
+//    var fullKey = "8899aabbccddeeff0011223344556677fedcba98765432100123456789abcdef"
 
     //MARK: - Основные функции
 
@@ -286,13 +286,13 @@ class CryptoManager {
             iterC[i] = getTransformationL(for: iterativeNumbers[i]) //ДЕЛАЕМ ПРЕОБРАЗОВАНИЕ L для каждого элемента массива
         }
         
-    //    print(iterativeNumbers)
-        print("ITERATIVE CONSTANTS ____________________________")
-        for const in iterC {
-            print("\(const)")
-        }
-    //    print(iterC)
-        print("ITERATIVE CONSTANTS ____________________________")
+//    //    print(iterativeNumbers)
+//        print("ITERATIVE CONSTANTS ____________________________")
+//        for const in iterC {
+//            print("\(const)")
+//        }
+//    //    print(iterC)
+//        print("ITERATIVE CONSTANTS ____________________________")
     }
 
     //функция, выполняющая преобразования ячейки Фейстеля
@@ -365,19 +365,19 @@ class CryptoManager {
             iterK[2 * i + 2] = iter12[0]
             iterK[2 * i + 3] = iter12[1]
         }
-        print("ITERATIVE KEYS ____________________________")
-        for key in iterK {
-            print("\(key)")
-        }
-    //    print(iterK)
-        print("ITERATIVE KEYS ____________________________")
+//        print("ITERATIVE KEYS ____________________________")
+//        for key in iterK {
+//            print("\(key)")
+//        }
+//    //    print(iterK)
+//        print("ITERATIVE KEYS ____________________________")
     }
     //MARK: -
 
     // функция шифрования блока
     func kuznechikEncryption(block blk: [UInt8]) -> [UInt8] {
-        print("BLOCK")
-        print(blk)
+//        print("BLOCK")
+//        print(blk)
         var outBlk: [UInt8] = []
         outBlk = blk
         

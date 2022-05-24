@@ -23,7 +23,7 @@ class MasterKeyViewController: UIViewController {
 //        deleteKey()
         setupViewContorller()
     }
-    
+
 //    private func deleteKey() {
 //        StorageManager.shared.delete(keyList[0])
 //    }
@@ -76,6 +76,5 @@ class MasterKeyViewController: UIViewController {
 //        }
 //        return resultKey
         return key
-//        print(mainKey.key)
     }
 }

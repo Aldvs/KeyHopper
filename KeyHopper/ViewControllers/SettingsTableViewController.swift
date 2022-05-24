@@ -16,19 +16,21 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
     var keyList: [MasterKey] = []
-    var editData: DataEntity!
+    var setupedData: DataEntity!
+    
     var isEdit: Bool!
     var button = UIButton(type: .custom)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchKey()
         updateUI(isEdit)
+ 
         updateSaveButtonState()
         setupEyeButton()
-        fetchKey()
     }
     
-    @IBAction func tetxChanged(_ sender: Any) {
+    @IBAction func textChanged(_ sender: Any) {
         updateSaveButtonState()
     }
     
@@ -38,16 +40,71 @@ class SettingsTableViewController: UITableViewController {
         toggleEyeButton(senderValue)
     }
     
-    private func fetchKey() {
-        StorageManager.shared.fetchKey { result in
-            switch result {
-            case .success(let keys):
-                self.keyList = keys
-            case .failure(let error):
-                print(error.localizedDescription)
+    
+    //MARK: - Private Methods
+    private func updateSaveButtonState() {
+        
+        let accountText = accountTextField.text ?? ""
+        let passwordText = passwordTextField.text ?? ""
+        saveButton.isEnabled = !accountText.isEmpty && !passwordText.isEmpty && passwordText.count == 32
+    }
+    
+    private func updateUI(_ editMode: Bool) {
+        
+        if isEdit, let key = keyList[0].key, let passwordForUserEyes = setupedData.password {
+            accountTextField.text = setupedData.accountName ?? ""
+            passwordTextField.text = CryptoManager.shared.decryptionFunc(entireText: passwordForUserEyes, master: key)
+            hintTextField.text = setupedData.hint ?? ""
+            
+        } else {
+            accountTextField.text = ""
+            passwordTextField.text = ""
+            hintTextField.text = ""
+
+        }
+    }
+
+    //MARK: - Navigation method
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        guard segue.identifier == "saveSegue" else { return }
+
+        guard let masterKey = keyList[0].key else { return }
+        
+        if isEdit == false,
+           let account = accountTextField.text,
+           let password = passwordTextField.text,
+           let hint = hintTextField.text {
+            
+            let securedPassword = CryptoManager.shared.encryptionFunc(block: password, master: masterKey)
+            print("ЗАШИФРОВАННЫЙ ПАРОЛЬ ПОСЛЕ СОЗДАНИЯ НОВОГО ПАРОЛЯ (ТО ЧТО ВОШЛО В БД ПОСЛЕ СОЗДАНИЯ)")
+            print(securedPassword)
+            StorageManager.shared.save(account, securedPassword, hint) { data in
+                data.accountName = account
+                data.password = securedPassword
+                data.hint = hint
+            }
+            
+        } else {
+            
+            if let name = accountTextField.text, let password = passwordTextField.text, let master = keyList[0].key , let hint = hintTextField.text, let editedData = setupedData {
+                let encryptedPassword = CryptoManager.shared.encryptionFunc(block: password, master: master)
+                print("ЗАШИФРОВАННЫЙ ПАРОЛЬ ПОСЛЕ РЕДАКТИРОВАНИЯ:")
+                print(encryptedPassword)
+                StorageManager.shared.edit(editedData, newName: name, newPassword: encryptedPassword, newHint: hint)
             }
         }
     }
+//        if let name = accountTextField.text, let password = passwordTextField.text, let master = keyList[0].key , let hint = hintTextField.text, let editedData = setupedData {
+//            let encryptedPassword = CryptoManager.shared.encryptionFunc(block: password, master: master)
+//            print("ЗАШИФРОВАННЫЙ ПАРОЛЬ ПОСЛЕ ПРОСМОТРА ЛИБО РЕДАКТИРОВАНИЯ:")
+//            print(encryptedPassword)
+//            StorageManager.shared.edit(editedData, newName: name, newPassword: encryptedPassword, newHint: hint)
+//        }
+
+}
+
+extension SettingsTableViewController {
     
     func setupEyeButton() {
         
@@ -78,47 +135,17 @@ class SettingsTableViewController: UITableViewController {
             let boldSearch = UIImage(systemName: "eye.slash", withConfiguration: boldConfig)
             button.setImage(boldSearch, for: .normal)
         }
-
     }
     
-    //MARK: - Private Methods
-    private func updateSaveButtonState() {
-        let accountText = accountTextField.text ?? ""
-        let passwordText = passwordTextField.text ?? ""
-        //        let hintText = hintTextField.text ?? ""
-        
-        saveButton.isEnabled = !accountText.isEmpty && !passwordText.isEmpty && passwordText.count == 32
-        
-    }
-    
-    private func updateUI(_ editMode: Bool) {
-        
-        if isEdit
-//            , let decrypredPass = editData.password, let masterKey = keyList[0].key
-        {
-            accountTextField.text = editData.accountName ?? ""
-            passwordTextField.text = editData.password ?? ""
-//            CryptoManager.shared.decryptionFunc(entireText: decrypredPass, master: masterKey)
-            print(passwordTextField.text ?? "decrypted string")
-            hintTextField.text = editData.hint ?? ""
-        } else {
-            accountTextField.text = ""
-            passwordTextField.text = ""
-            hintTextField.text = ""
-
+    private func fetchKey() {
+        StorageManager.shared.fetchKey { result in
+            switch result {
+            case .success(let keys):
+                self.keyList = keys
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
-    }
-
-    //MARK: - Override Methods
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        super.prepare(for: segue, sender: sender)
-        guard segue.identifier == "saveSegue" else { return }
-        
-        if let name = accountTextField.text, let password = passwordTextField.text , let hint = hintTextField.text, let newData = editData{
-            StorageManager.shared.edit(newData, newName: name, newPassword: password, newHint: hint)
-
-        }
-
     }
 
 }

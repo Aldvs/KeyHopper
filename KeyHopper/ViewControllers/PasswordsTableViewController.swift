@@ -8,7 +8,7 @@
 import UIKit
 
 class PasswordsTableViewController: UITableViewController {
- 
+    
     var dataList: [DataEntity] = []
     var keyList: [MasterKey] = []
     
@@ -17,82 +17,73 @@ class PasswordsTableViewController: UITableViewController {
         self.title = "Ваши пароли"
         self.navigationItem.leftBarButtonItem = editButtonItem
         editButtonItem.title = "Редактировать"
-
-        }
-
+        
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchData()
         fetchKey()
         tableView.reloadData()
     }
-
-    private func fetchKey() {
-        StorageManager.shared.fetchKey { result in
-            switch result {
-            case .success(let keys):
-                self.keyList = keys
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-
-    private func fetchData() {
-        StorageManager.shared.fetchData { result in
-            switch result {
-            case .success(let data):
-                self.dataList = data
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
+    
     // MARK: - Navigation Methods
     
     @IBAction func unwindSegue(segue: UIStoryboardSegue) {
         guard segue.identifier == "saveSegue" else { return }
-        let sourceVC = segue.source as! SettingsTableViewController
+        let setupVC = segue.source as! SettingsTableViewController
         
-        if let selectedIndexPath = tableView.indexPathForSelectedRow, let updatedData = sourceVC.editData {
+        //редактирование по нажатию на ячейку ПРИХОД ДАННЫХ
+        if let selectedIndexPath = tableView.indexPathForSelectedRow, let updatedData = setupVC.setupedData {
+            //обновление таблицы
             dataList[selectedIndexPath.row] = updatedData
             tableView.reloadRows(at: [selectedIndexPath], with: .fade)
-        } else {
-            let account = sourceVC.accountTextField.text ?? ""
-            let password = sourceVC.passwordTextField.text ?? ""
-            let hint = sourceVC.hintTextField.text ?? ""
-            guard let masterKey = keyList[0].key else { return }
-            let securedPassword = CryptoManager.shared.encryptionFunc(block: password, master: masterKey)
-            print(securedPassword)
-            StorageManager.shared.save(account, securedPassword, hint) { data in
-                data.accountName = account
-                data.password = password
-                data.hint = hint
-            }
         }
     }
+//        else {
+//            //приход данных после сохранения новой записи либо отредактированной
+//            let account = setupVC.accountTextField.text ?? ""
+//            let password = setupVC.passwordTextField.text ?? ""
+//            let hint = setupVC.hintTextField.text ?? ""
+//
+//            guard let masterKey = keyList[0].key else { return }
+//
+//            let securedPassword = CryptoManager.shared.encryptionFunc(block: password, master: masterKey)
+//            print("ЗАШИФРОВАННЫЙ ПАРОЛЬ ПОСЛЕ НАЖАТИЯ НА КНОПКУ СОХРАНИТЬ(ТО ЧТО ВОШЛО В БД ПОСЛЕ СОЗДАНИЯ)")
+//            print(securedPassword)
+//            //перенести метод сохранения на экран настройки
+//            StorageManager.shared.save(account, securedPassword, hint) { data in
+//                data.accountName = account
+//                data.password = password
+//                data.hint = hint
+//            }
+//        }
+
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
+        
+        // редактирование по нажатию на ячейку УХОД ДАННЫХ
         if segue.identifier == "editData" {
-            
             let indexPath = tableView.indexPathForSelectedRow!
             let data = dataList[indexPath.row]
             let navigationVC = segue.destination as! UINavigationController
-            let editDataVC = navigationVC.topViewController as! SettingsTableViewController
-            editDataVC.title = "Настройка"
-            editDataVC.editData = data
-            editDataVC.isEdit = true
+            let setupDataVC = navigationVC.topViewController as! SettingsTableViewController
+            setupDataVC.title = "Настройка"
+            setupDataVC.setupedData = data //трансфер выбранных данных на экран настройки
+            setupDataVC.isEdit = true
             
+        // новая запись УХОД ДАННЫХ
         } else if segue.identifier == "addData" {
-            
             let navigationVC = segue.destination as! UINavigationController
-            let addDataVC = navigationVC.topViewController as! SettingsTableViewController
-            addDataVC.title = "Новый аккаунт"
-            addDataVC.isEdit = false
+            let setupDataVC = navigationVC.topViewController as! SettingsTableViewController
+            setupDataVC.title = "Новый аккаунт"
+            setupDataVC.isEdit = false
         }
-        
     }
+}
+
+extension PasswordsTableViewController {
     
     //MARK: - Override wethods
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -106,19 +97,19 @@ class PasswordsTableViewController: UITableViewController {
     }
     
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataList.count
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "accountCell", for: indexPath) as! DataTableViewCell
-
+        
         let data = dataList[indexPath.row]
         cell.set(object: data)
         
@@ -144,10 +135,30 @@ class PasswordsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-
+        
         let movedAccount = dataList.remove(at: sourceIndexPath.row)
         dataList.insert(movedAccount, at: destinationIndexPath.row)
         tableView.reloadData()
     }
-
+    private func fetchKey() {
+        StorageManager.shared.fetchKey { result in
+            switch result {
+            case .success(let keys):
+                self.keyList = keys
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func fetchData() {
+        StorageManager.shared.fetchData { result in
+            switch result {
+            case .success(let data):
+                self.dataList = data
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
