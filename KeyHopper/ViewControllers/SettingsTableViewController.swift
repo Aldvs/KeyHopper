@@ -54,6 +54,7 @@ class SettingsTableViewController: UITableViewController {
         if isEdit, let key = keyList[0].key, let passwordForUserEyes = setupedData.password {
             accountTextField.text = setupedData.accountName ?? ""
             passwordTextField.text = CryptoManager.shared.decryptionFunc(entireText: passwordForUserEyes, master: key)
+            print("ДЛИННА ПАРОЛЯ ЗАШИФРОВАННОГО ДЛЯ ПОКАЗА ЕМУ: \(passwordForUserEyes)")
             hintTextField.text = setupedData.hint ?? ""
             
         } else {
@@ -79,6 +80,7 @@ class SettingsTableViewController: UITableViewController {
             let securedPassword = CryptoManager.shared.encryptionFunc(block: password, master: masterKey)
             print("ЗАШИФРОВАННЫЙ ПАРОЛЬ ПОСЛЕ СОЗДАНИЯ НОВОГО ПАРОЛЯ (ТО ЧТО ВОШЛО В БД ПОСЛЕ СОЗДАНИЯ)")
             print(securedPassword)
+            print(securedPassword.count)
             StorageManager.shared.save(account, securedPassword, hint) { data in
                 data.accountName = account
                 data.password = securedPassword
@@ -91,6 +93,7 @@ class SettingsTableViewController: UITableViewController {
                 let encryptedPassword = CryptoManager.shared.encryptionFunc(block: password, master: master)
                 print("ЗАШИФРОВАННЫЙ ПАРОЛЬ ПОСЛЕ РЕДАКТИРОВАНИЯ:")
                 print(encryptedPassword)
+                print(encryptedPassword.count)
                 StorageManager.shared.edit(editedData, newName: name, newPassword: encryptedPassword, newHint: hint)
             }
         }

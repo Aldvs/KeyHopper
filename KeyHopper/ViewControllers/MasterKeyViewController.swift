@@ -21,6 +21,7 @@ class MasterKeyViewController: UIViewController {
         super.viewDidLoad()
         fetchKey()
 //        deleteKey()
+//        print(keyList[0].key)
         setupViewContorller()
     }
 
@@ -68,13 +69,13 @@ class MasterKeyViewController: UIViewController {
     }
     
     private func generateRandomMasterKey(masterKey key: String) -> String {
-//        var resultKey = ""
-//        let shuffledKey = mainKey.key.shuffled()
-//        mainKey.key = ""
-//        for ch in shuffledKey {
-//            resultKey.append(ch)
-//        }
+        var resultKey = ""
+        let shuffledKey = mainKey.key.shuffled()
+        for ch in shuffledKey {
+            resultKey.append(ch)
+        }
 //        return resultKey
-        return key
+        print("Длинна ключа \(resultKey.count)")
+        return resultKey
     }
 }

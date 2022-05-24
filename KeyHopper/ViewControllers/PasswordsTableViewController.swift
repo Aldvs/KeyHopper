@@ -40,25 +40,6 @@ class PasswordsTableViewController: UITableViewController {
             tableView.reloadRows(at: [selectedIndexPath], with: .fade)
         }
     }
-//        else {
-//            //приход данных после сохранения новой записи либо отредактированной
-//            let account = setupVC.accountTextField.text ?? ""
-//            let password = setupVC.passwordTextField.text ?? ""
-//            let hint = setupVC.hintTextField.text ?? ""
-//
-//            guard let masterKey = keyList[0].key else { return }
-//
-//            let securedPassword = CryptoManager.shared.encryptionFunc(block: password, master: masterKey)
-//            print("ЗАШИФРОВАННЫЙ ПАРОЛЬ ПОСЛЕ НАЖАТИЯ НА КНОПКУ СОХРАНИТЬ(ТО ЧТО ВОШЛО В БД ПОСЛЕ СОЗДАНИЯ)")
-//            print(securedPassword)
-//            //перенести метод сохранения на экран настройки
-//            StorageManager.shared.save(account, securedPassword, hint) { data in
-//                data.accountName = account
-//                data.password = password
-//                data.hint = hint
-//            }
-//        }
-
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)

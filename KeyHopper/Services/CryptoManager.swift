@@ -12,8 +12,6 @@ class CryptoManager {
     static var shared = CryptoManager()
     
 //    var openText = "1122334455667700ffeeddccbbaa9988"
-//
-//    var fullKey = "8899aabbccddeeff0011223344556677fedcba98765432100123456789abcdef"
 
     //MARK: - Основные функции
 
@@ -443,7 +441,18 @@ class CryptoManager {
     }
 
     func bytesToString(for decryptedBytes: [UInt8]) -> [String] {
-        decryptedBytes.map {String($0, radix: 16)}
+        var result: [String] = []
+        var ultraResult: [String] = []
+        result = decryptedBytes.map {String($0, radix: 16)}
+        for str in result {
+            if str.count != 2 {
+                ultraResult.append("0\(str)")
+            } else {
+                ultraResult.append(str)
+            }
+        }
+//        print("[STRING]\(ultraResult)")
+        return ultraResult
     }
 
     func arrayToString(for decryptedString: [String]) -> String {
