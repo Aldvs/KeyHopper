@@ -7,17 +7,10 @@
 
 import Foundation
 
-class DataManager {
+struct MainKey {
+    var key: String
     
-    static let shared = DataManager()
-    
-    let login = "User"
-    let password = "Password"
-    
-    let masterKey = "8899aabbccddeeffrr11223344556677fedcba98765432100123456789abcdef"
-    
-    
-    
-    private init() {}
-    
+    static func getMainKey() -> MainKey {
+        MainKey(key: "8899aabbccddeeff0011223344556677fedcba98765432100123456789abcdef")
+    }
 }
