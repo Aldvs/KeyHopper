@@ -9,40 +9,11 @@ import Foundation
 
 class CryptoManager {
     
+    //MARK: - Public properties
+    var openText = "1122334455667700ffeeddccbbaa9988" //for presentatinon
     static var shared = CryptoManager()
-    
-//    var openText = "1122334455667700ffeeddccbbaa9988"
 
-    //MARK: - Основные функции
-
-    func encryptionFunc(block openText: String, master key: String) -> String {
-        
-        let block = stringToBytes(for: openText)
-        prepareKeys(master: key)
-        let encryptedBlock = kuznechikEncryption(block: block)
-        let resultString = getString(for: encryptedBlock)
-        
-        return resultString
-    }
-
-    func decryptionFunc(entireText openText: String, master key: String) -> String {
-        prepareKeys(master: key)
-        let tempBlock = stringToBytes(for: openText)
-        let decryptedBlock = kuznechikDencryption(block: tempBlock)
-        let resultString = getString(for: decryptedBlock)
-        
-        return resultString
-    }
-
-    func prepareKeys(master key: String) {
-        let ourStringFirstKeys = getStringPairOfKeys(key: key)
-        let firstPairOfKeys = getFirstPairOfKeys(for: ourStringFirstKeys)
-        expandKeys(with: firstPairOfKeys[0], and: firstPairOfKeys[1])
-
-    }
-    
-    //MARK: - АЛГОРИТМ ШИФРОВАНИЯ
-
+    //MARK: - Main containers
     //значения для нелинейного преобразования множества двоичных векторов (преобразование S)
     let pi: [UInt8] = [
         0xFC, 0xEE, 0xDD, 0x11, 0xCF, 0x6E, 0x31, 0x16,
@@ -80,7 +51,6 @@ class CryptoManager {
     ]
 
     // значения для обратного нелинейного преобразования множества двоичных векторов (обратное преобразование S)
-
     let reversePi: [UInt8] = [
         0xA5, 0x2D, 0x32, 0x8F, 0x0E, 0x30, 0x38, 0xC0,
         0x54, 0xE6, 0x9E, 0x39, 0x55, 0x7E, 0x52, 0x91,
@@ -117,24 +87,62 @@ class CryptoManager {
     ]
 
     //L-вектор для реализации R-преобразования
-
     var lVector: [UInt8] = [
         148, 32, 133, 16, 194, 192, 1, 251,
         1, 192, 194, 16, 133, 32, 148, 1
     ]
 
-    // массив для хранения итерационных констант С (32) 16 байт каждая
+    // массив для хранения итерационных констант С (32 константы) 16 байт каждая
     var iterC: [[UInt8]] = Array(
         repeating: Array(repeating: UInt8(0x00), count: 16),
         count: 32
     )
-    // массив для хранения ключей шифрования K (10) 64 бита
+    
+    // массив для хранения ключей шифрования K (10 ключей) 64 бита
     var iterK: [[UInt8]] = Array(
         repeating: Array(repeating: UInt8(0x00), count: 64),
         count: 10
     )
-    //ФУНКЦИЯ XOR
-    func getXOR(from firstVect: [UInt8], and secondVect: [UInt8]) -> [UInt8] {
+        
+    //MARK: - Main public properties
+    //функция зашифровки открытой строки в закрытую
+    func encryptionFunc(block openText: String, master key: String) -> String {
+        let block = stringToBytes(for: openText)
+        prepareKeys(master: key)
+        let encryptedBlock = kuznechikEncryption(block: block)
+        let resultString = getString(for: encryptedBlock)
+        
+        return resultString
+    }
+    
+    //функция обратная зашифровке
+    func decryptionFunc(entireText openText: String, master key: String) -> String {
+        prepareKeys(master: key)
+        let tempBlock = stringToBytes(for: openText)
+        let decryptedBlock = kuznechikDencryption(block: tempBlock)
+        let resultString = getString(for: decryptedBlock)
+        
+        return resultString
+    }
+
+    //функция развертки ключей
+    func prepareKeys(master key: String) {
+        let ourStringFirstKeys = getStringPairOfKeys(key: key)
+        let firstPairOfKeys = getFirstPairOfKeys(for: ourStringFirstKeys)
+        expandKeys(with: firstPairOfKeys[0], and: firstPairOfKeys[1])
+    }
+    
+    private init() {}
+    
+}
+
+//MARK: - Private transformation methods
+extension CryptoManager {
+    
+    //MARK: - АЛГОРИТМ ШИФРОВАНИЯ
+
+    //ФУНКЦИЯ XOR-преобразования
+    private func getXOR(from firstVect: [UInt8], and secondVect: [UInt8]) -> [UInt8] {
         var result: [UInt8] = []
         for i in 0..<16 {
             result.append(firstVect[i] ^ secondVect[i])
@@ -143,7 +151,7 @@ class CryptoManager {
     }
 
     //ФУНКЦИЯ S ПРЕОБРАЗОВАНИЯ
-    func getS(from inData: [UInt8]) -> [UInt8] {
+    private func getS(from inData: [UInt8]) -> [UInt8] {
         var outData: [UInt8] = []
         for i in 0..<16 {
             outData.append(pi[Int(inData[i])])
@@ -152,7 +160,7 @@ class CryptoManager {
     }
 
     //ФУНКЦИЯ ОБРАТНОГО S ПРЕОБРАЗОВАНИЯ
-    func getReverseS(from inData: [UInt8]) -> [UInt8] {
+    private func getReverseS(from inData: [UInt8]) -> [UInt8] {
         var outData: [UInt8] = []
         for i in 0..<16 {
             outData.append(reversePi[Int(inData[i])])
@@ -161,11 +169,9 @@ class CryptoManager {
     }
 
     //ФУНКЦИЯ УМНОЖЕНИЕ В ПОЛЕ ГАЛУА
-
     // & - ПОБИТОВОЕ И
     // ^ - ПОБИТОВОЕ ИЛИ XOR
-
-    func multiplicateGaluaField(from a: UInt8, and b: UInt8) -> UInt8 {
+    private func multiplicateGaluaField(from a: UInt8, and b: UInt8) -> UInt8 {
         var c: UInt8 = 0
 
         var tempA = a
@@ -186,7 +192,7 @@ class CryptoManager {
     }
 
     //ПРЕОБРАЗОВАНИЕ R (умножение + сдвиг)
-    func getTransformationR(for state: [UInt8]) -> [UInt8] {
+    private func getTransformationR(for state: [UInt8]) -> [UInt8] {
 
         var aZero: UInt8 = 0
         var intern: [UInt8] = Array(repeating: 0x00, count: 16)
@@ -200,39 +206,39 @@ class CryptoManager {
             }
 
             aZero ^= multiplicateGaluaField(from: state[i], and: lVector[i])
-            
-
         }
         
         //ПИШЕМ В ПОСЛЕДНИЙ БАЙТ РЕЗУЛЬТАТ СЛОЖЕНИЯ
         intern[0] = aZero
-    //    print(intern)
         return intern
     }
 
 
     //ПРЕОБРАЗОВАНИЕ L
-    func getTransformationL(for inData: [UInt8]) -> [UInt8] {
+    private func getTransformationL(for inData: [UInt8]) -> [UInt8] {
         var outData: [UInt8] = Array(repeating: 0x00, count: inData.count)
         var intern = inData
         for _ in 0..<15 {
             intern = getTransformationR(for: intern)
         }
         outData = intern
+        
         return outData
     }
-    func getTransformationLForFN(for inData: [UInt8]) -> [UInt8] {
+    
+    private func getTransformationLForFN(for inData: [UInt8]) -> [UInt8] {
         var outData: [UInt8] = Array(repeating: 0x00, count: inData.count)
         var intern = inData
         for _ in 0..<16 {
             intern = getTransformationR(for: intern)
         }
         outData = intern
+        
         return outData
     }
 
     // ОБРАТНОЕ ПРЕОБРАЗОВАНИЕ R
-    func getReverseR(for state: [UInt8]) -> [UInt8] {
+    private func getReverseR(for state: [UInt8]) -> [UInt8] {
         var i = 15
         var aLast: UInt8 = state[0]
         var intern:  [UInt8] = Array(repeating: 0x00, count: 16)
@@ -249,7 +255,7 @@ class CryptoManager {
 
 
     //ОБРАТНОЕ ПРЕОБРАЗОВАНИЕ L
-    func getReverseL(for inData: [UInt8]) -> [UInt8] {
+    private func getReverseL(for inData: [UInt8]) -> [UInt8] {
         var outData:  [UInt8] = Array(repeating: 0x00, count: inData.count)
         var intern: [UInt8] = []
         intern = inData
@@ -260,18 +266,15 @@ class CryptoManager {
         return outData
     }
 
-    //MARK: - РАЗВЕРТКА КЛЮЧЕЙ ФУНКЦИИ
+    //MARK: - Key expanding methods
 
-    //ФУНКЦИЯ РАСЧЕТА КОНСТАНТ
-
-    func getIterativeConstants() {
+    //функция расчета итерационных констант
+    private func getIterativeConstants() {
         
         var iterativeNumbers = Array(
             repeating: Array(repeating: UInt8(0x00), count: 16),
             count: 32
         ) //номер итерации от 1 до 32
-        
-    //    print(iterativeNumbers)
         
         for i in 0..<32 {
             for j in 0..<16 {
@@ -294,40 +297,28 @@ class CryptoManager {
     }
 
     //функция, выполняющая преобразования ячейки Фейстеля
-    func getFeistelNetwork(keyOne firstKey: [UInt8],
+    private func getFeistelNetwork(keyOne firstKey: [UInt8],
                            keyTwo secondKey: [UInt8],
                            withIterC iterConst: [UInt8] ) -> [[UInt8]] {
-        
-    //    print("First key: \(firstKey)")
-    //    print("Second key: \(secondKey)")
-    //    print("Iter const: \(iterConst)")
-        
         var inter: [UInt8] = []
-        
         let outKeyTwo = firstKey
 
         inter = getXOR(from: firstKey, and: iterConst)
-    //    print("Inter after XOR: \(inter)")
         inter = getS(from: inter)
-    //    print("Inter after S: \(inter)")
         inter = getTransformationLForFN(for: inter)
-    //    print("Inter after L: \(inter)")
         
         let outKeyOne = getXOR(from: inter, and: secondKey)
-    //    print("Out key #1: \(outKeyOne)")
-    //    print("Out key #2: \(outKeyTwo)")
-
         var key = Array(
             repeating: Array(repeating: UInt8(0x00), count: 16),
             count: 2)
         key[0] = outKeyOne
         key[1] = outKeyTwo
+        
         return key
     }
 
     // функция расчета раундовых ключей
-
-    func expandKeys(with keyOne: [UInt8], and keyTwo: [UInt8]) {
+    private func expandKeys(with keyOne: [UInt8], and keyTwo: [UInt8]) {
         //предыдущая пара ключей
         var iter12 = Array(
             repeating: Array(repeating: UInt8(0x00), count: 16),
@@ -345,11 +336,7 @@ class CryptoManager {
         
         iter12[0] = keyOne
         iter12[1] = keyTwo
-        
-    //    print("Keys in expand func")
-    //    print(iterK[0])
-    //    print(iterK[1])
-        
+
         for i in 0..<4 {
             iter34 = getFeistelNetwork(keyOne: iter12[0], keyTwo: iter12[1], withIterC: iterC[0 + 8 * i])
             iter12 = getFeistelNetwork(keyOne: iter34[0], keyTwo: iter34[1], withIterC: iterC[1 + 8 * i])
@@ -370,48 +357,42 @@ class CryptoManager {
 //    //    print(iterK)
 //        print("ITERATIVE KEYS ____________________________")
     }
-    //MARK: -
-
+    //MARK: - Encryption and decryption methods
     // функция шифрования блока
-    func kuznechikEncryption(block blk: [UInt8]) -> [UInt8] {
-//        print("BLOCK")
-//        print(blk)
+    private func kuznechikEncryption(block blk: [UInt8]) -> [UInt8] {
         var outBlk: [UInt8] = []
         outBlk = blk
         
         for i in 0..<9 {
-            
             outBlk = getXOR(from: iterK[i], and: outBlk)
             outBlk = getS(from: outBlk)
             outBlk = getTransformationLForFN(for: outBlk)
         }
         outBlk = getXOR(from: outBlk, and: iterK[9])
+        
         return outBlk
     }
 
     //функция расшифрования блока
-    func kuznechikDencryption(block blk: [UInt8]) -> [UInt8] {
+    private func kuznechikDencryption(block blk: [UInt8]) -> [UInt8] {
         var outBlk: [UInt8] = []
         var i = 8
         outBlk = blk
         outBlk = getXOR(from: outBlk, and: iterK[9])
-    //    print("OUTBLOCK after XORfirst: \(outBlk)")
-
+        
         repeat {
             outBlk = getReverseL(for: outBlk)
-    //        print("OUTBLOCK after RL: \(outBlk)")
             outBlk = getReverseS(from: outBlk)
-    //        print("OUTBLOCK after RS: \(outBlk)")
             outBlk = getXOR(from: iterK[i], and: outBlk)
-    //        print("OUTBLOCK after XOR: \(outBlk)")
             i -= 1
         } while i >= 0
         
             return outBlk
     }
-    //MARK: - Convertation Functions
-
-    func stringToArray(str txt: String) -> [String] {
+    
+    //MARK: - Private convertation methods
+    
+    private func stringToArray(str txt: String) -> [String] {
         var openText = txt
         let startIndex = openText.startIndex
         var array: [String] = []
@@ -426,21 +407,23 @@ class CryptoManager {
             array.append(tempStr)
             tempStr = ""
         } while !openText.isEmpty
+        
         return array
     }
 
-    func convertArrayToBytes(convert arr: [String]) -> [UInt8] {
+    private func convertArrayToBytes(convert arr: [String]) -> [UInt8] {
         arr.map{UInt8($0, radix: 16)!}
     }
 
     //ФУНКЦИЯ ПОДГОТАВЛИВАЕТ ОТКРЫТЫЙ ТЕКСТ К ШИФРОВАНИЮ
-    func stringToBytes(for stringToEncryption: String) -> [UInt8] {
+    private func stringToBytes(for stringToEncryption: String) -> [UInt8] {
         let arrayOfString = stringToArray(str: stringToEncryption)
         let arrayOfBytes = convertArrayToBytes(convert: arrayOfString)
+        
         return arrayOfBytes
     }
 
-    func bytesToString(for decryptedBytes: [UInt8]) -> [String] {
+    private func bytesToString(for decryptedBytes: [UInt8]) -> [String] {
         var result: [String] = []
         var ultraResult: [String] = []
         result = decryptedBytes.map {String($0, radix: 16)}
@@ -451,11 +434,11 @@ class CryptoManager {
                 ultraResult.append(str)
             }
         }
-//        print("[STRING]\(ultraResult)")
+        
         return ultraResult
     }
 
-    func arrayToString(for decryptedString: [String]) -> String {
+    private func arrayToString(for decryptedString: [String]) -> String {
         var resultString = ""
         for stringByte in decryptedString {
             if stringByte == "0" {
@@ -464,18 +447,19 @@ class CryptoManager {
                 resultString += stringByte
             }
         }
+        
         return resultString
     }
 
     //ФУНКЦИЯ КОНВЕРТИРУЕТ МАССИВ БАЙТОВ ПОСЛЕ ДЕШИФРОВКИ В СТРОКУ
-    func getString(for decryptedBytes: [UInt8]) -> String {
+    private func getString(for decryptedBytes: [UInt8]) -> String {
         let arrayOfString = bytesToString(for: decryptedBytes)
         let resultString = arrayToString(for: arrayOfString)
+        
         return resultString
     }
 
-    func getStringPairOfKeys(key fullKey: String) -> [String] {
-
+    private func getStringPairOfKeys(key fullKey: String) -> [String] {
         var pairOfKyes = [String]()
 
         let halfKey: Int = fullKey.count / 2
@@ -488,15 +472,16 @@ class CryptoManager {
         return pairOfKyes
     }
 
-    func getFirstPairOfKeys(for keys: [String]) -> [[UInt8]] {
+    private func getFirstPairOfKeys(for keys: [String]) -> [[UInt8]] {
         var twoKyes: [[UInt8]] = []
         var tempStringArray: [String] = []
+        
         for partOfKey in keys {
             tempStringArray = stringToArray(str: partOfKey)
             twoKyes.append(convertArrayToBytes(convert: tempStringArray))
         }
+        
         return twoKyes
     }
-    private init() {}
 }
 

@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // MARK: UISceneSession Lifecycle
-
     func applicationWillTerminate(_ application: UIApplication) {
         StorageManager.shared.saveContext()
     }
@@ -30,7 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        
         }
 
 
