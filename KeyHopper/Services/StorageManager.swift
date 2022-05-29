@@ -9,10 +9,10 @@ import CoreData
 
 class StorageManager {
 
+    //MARK: - Puplic properties
     static let shared = StorageManager()
 
     // MARK: - Core Data stack
-
     private let persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "DataModel")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in

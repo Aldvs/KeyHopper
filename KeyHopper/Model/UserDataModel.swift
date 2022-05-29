@@ -9,6 +9,7 @@ import Foundation
 
 struct UserData {
     
+    //MARK: - Public properties
     var nameOfAccount: String = ""
     var password: String = ""
     var hint: String = ""
@@ -16,6 +17,7 @@ struct UserData {
     var login: String
     var passwordForAuthorization: String
     
+    //MARK: - Public methods
     static func getUserData() -> UserData {
         UserData(
             login: "user",

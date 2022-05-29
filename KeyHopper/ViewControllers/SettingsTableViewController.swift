@@ -9,12 +9,14 @@ import UIKit
 
 class SettingsTableViewController: UITableViewController {
     
+    //MARK: - IB Outlets
     @IBOutlet weak var accountTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var hintTextField: UITextField!
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
+    //MARK: - Public properties
     var keyList: [MasterKey] = []
     var setupedData: DataEntity!
     
@@ -30,6 +32,7 @@ class SettingsTableViewController: UITableViewController {
         setupEyeButton()
     }
     
+    //MARK: - IB Actions
     @IBAction func textChanged(_ sender: Any) {
         updateSaveButtonState()
     }
@@ -98,18 +101,13 @@ class SettingsTableViewController: UITableViewController {
             }
         }
     }
-//        if let name = accountTextField.text, let password = passwordTextField.text, let master = keyList[0].key , let hint = hintTextField.text, let editedData = setupedData {
-//            let encryptedPassword = CryptoManager.shared.encryptionFunc(block: password, master: master)
-//            print("ЗАШИФРОВАННЫЙ ПАРОЛЬ ПОСЛЕ ПРОСМОТРА ЛИБО РЕДАКТИРОВАНИЯ:")
-//            print(encryptedPassword)
-//            StorageManager.shared.edit(editedData, newName: name, newPassword: encryptedPassword, newHint: hint)
-//        }
-
 }
 
+//MARK: - Extention
 extension SettingsTableViewController {
     
-    func setupEyeButton() {
+    //MARK: - Private methods
+    private func setupEyeButton() {
         
         passwordTextField.rightViewMode = .unlessEditing
         
@@ -126,7 +124,7 @@ extension SettingsTableViewController {
         
     }
     
-    func toggleEyeButton(_ senderValue: Bool) {
+    private func toggleEyeButton(_ senderValue: Bool) {
         if senderValue {
             self.passwordTextField.isSecureTextEntry = false
             let boldConfig = UIImage.SymbolConfiguration(weight: .light)

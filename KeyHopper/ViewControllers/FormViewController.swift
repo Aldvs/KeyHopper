@@ -17,47 +17,17 @@ class FormViewController: UIViewController {
     //MARK: - Private properties
     private let user = UserData.getUserData()
     
+    //MARK: Lifecycle Method
     override func viewDidLoad() {
         super.viewDidLoad()
         setupEyeButton()
     }
 
+    //MARK: IB Actions
     @IBAction func btnPasswordVisibilityClicked(_ sender: Any) {
         (sender as! UIButton).isSelected = !(sender as! UIButton).isSelected
         let senderValue = (sender as! UIButton).isSelected
         toggleEyeButton(senderValue)
-    }
-    
-    func setupEyeButton() {
-        
-        passwordTextField.rightViewMode = .unlessEditing
-        
-        let boldConfig = UIImage.SymbolConfiguration(weight: .light)
-        let boldSearch = UIImage(systemName: "eye.slash", withConfiguration: boldConfig)
-        
-        button.setImage(boldSearch, for: .normal)
-        button.tintColor = .black
-        button.addTarget(self, action: #selector(self.btnPasswordVisibilityClicked(_:)), for: .touchUpInside)
-        
-        passwordTextField.rightView = button
-        passwordTextField.rightViewMode = .always
-        passwordTextField.isSecureTextEntry = true
-        
-    }
-    
-    func toggleEyeButton(_ senderValue: Bool) {
-        if senderValue {
-            self.passwordTextField.isSecureTextEntry = false
-            let boldConfig = UIImage.SymbolConfiguration(weight: .light)
-            let boldSearch = UIImage(systemName: "eye", withConfiguration: boldConfig)
-            button.setImage(boldSearch, for: .normal)
-        } else {
-            self.passwordTextField.isSecureTextEntry = true
-            let boldConfig = UIImage.SymbolConfiguration(weight: .light)
-            let boldSearch = UIImage(systemName: "eye.slash", withConfiguration: boldConfig)
-            button.setImage(boldSearch, for: .normal)
-        }
-
     }
     
     @IBAction func logIn() {
@@ -86,9 +56,48 @@ class FormViewController: UIViewController {
             passwordTextField.text = ""
         }
     }
+    
+    //MARK: - Private methods
+    private func setupEyeButton() {
+        
+        passwordTextField.rightViewMode = .unlessEditing
+        
+        let boldConfig = UIImage.SymbolConfiguration(weight: .light)
+        let boldSearch = UIImage(systemName: "eye.slash", withConfiguration: boldConfig)
+        
+        button.setImage(boldSearch, for: .normal)
+        button.tintColor = .black
+        button.addTarget(self, action: #selector(self.btnPasswordVisibilityClicked(_:)), for: .touchUpInside)
+        
+        passwordTextField.rightView = button
+        passwordTextField.rightViewMode = .always
+        passwordTextField.isSecureTextEntry = true
+        
+    }
+    
+    private func toggleEyeButton(_ senderValue: Bool) {
+        if senderValue {
+            self.passwordTextField.isSecureTextEntry = false
+            let boldConfig = UIImage.SymbolConfiguration(weight: .light)
+            let boldSearch = UIImage(systemName: "eye", withConfiguration: boldConfig)
+            button.setImage(boldSearch, for: .normal)
+        } else {
+            self.passwordTextField.isSecureTextEntry = true
+            let boldConfig = UIImage.SymbolConfiguration(weight: .light)
+            let boldSearch = UIImage(systemName: "eye.slash", withConfiguration: boldConfig)
+            button.setImage(boldSearch, for: .normal)
+        }
+    }
 }
 
+//MARK: - Extentions
 extension FormViewController {
+
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super .touchesBegan(touches, with: event)
+        view.endEditing(true)
+    }
 
     private func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -96,13 +105,8 @@ extension FormViewController {
         alert.addAction(okAction)
         present(alert, animated: true)
     }
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super .touchesBegan(touches, with: event)
-        view.endEditing(true)
-    }
-
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    
+    private func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == loginTextField {
             passwordTextField.becomeFirstResponder()
         } else {
@@ -110,5 +114,6 @@ extension FormViewController {
             performSegue(withIdentifier: "showWelcomeVC", sender: nil)
         }
         return true
-    }}
+    }
+}
 

@@ -10,8 +10,10 @@ import CryptoKit
 
 class SHAManager {
     
+    //MARK: - Public properties
     static var shared = SHAManager()
     
+    //MARK: - Public methods
     func getHash(from password: String) -> String {
 
         let data = Data(password.utf8)

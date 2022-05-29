@@ -9,13 +9,16 @@ import UIKit
 
 class MasterKeyViewController: UIViewController {
 
+    //MARK: - IB Outlets
     @IBOutlet weak var keyImage: UIImageView!
     @IBOutlet weak var checkMarkImage: UIImageView!
     @IBOutlet weak var generateButton: UIButton!
     
-    private var mainKey = MainKey.getMainKey()
-    
+    //MARK: - Public properties
     var keyList: [MasterKey] = []
+    
+    //MARK: - Private properties
+    private var mainKey = MainKey.getMainKey()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,18 +31,7 @@ class MasterKeyViewController: UIViewController {
 //    private func deleteKey() {
 //        StorageManager.shared.delete(keyList[0])
 //    }
-    
-    private func fetchKey() {
-        StorageManager.shared.fetchKey { result in
-            switch result {
-            case .success(let keys):
-                self.keyList = keys
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
+    //MARK: - IB Actions
     @IBAction func getMasterKey() {
         
         keyImage.isHidden = true
@@ -55,6 +47,19 @@ class MasterKeyViewController: UIViewController {
         }
         
     }
+    
+    //MARK: - Private methods
+    private func fetchKey() {
+        StorageManager.shared.fetchKey { result in
+            switch result {
+            case .success(let keys):
+                self.keyList = keys
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+
     
     private func setupViewContorller() {
         
@@ -74,8 +79,7 @@ class MasterKeyViewController: UIViewController {
         for ch in shuffledKey {
             resultKey.append(ch)
         }
-//        return resultKey
-        print("Длинна ключа \(resultKey.count)")
+        
         return resultKey
     }
 }

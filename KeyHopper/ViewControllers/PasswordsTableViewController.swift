@@ -9,9 +9,11 @@ import UIKit
 
 class PasswordsTableViewController: UITableViewController {
     
+    //MARK: - Public methods
     var dataList: [DataEntity] = []
     var keyList: [MasterKey] = []
     
+    //MARK: - Lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Ваши пароли"
@@ -64,6 +66,7 @@ class PasswordsTableViewController: UITableViewController {
     }
 }
 
+//MARK: - Extension
 extension PasswordsTableViewController {
     
     //MARK: - Override wethods
