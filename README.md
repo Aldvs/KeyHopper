@@ -3,7 +3,7 @@
 ### Initially, this pet project was my master's thesis. It has a symmetric block crypto algorithm "Grasshopper" (GOST R 34.12-2015) and native SHA256 from CryptoKit.
 ### Stack:
 1. Storyboards
-2. Storage: CoreData
+2. Database: CoreData
 3. Cryptography: SHA256(CryptoKit), and implementation of GOST R 34.12-2015
 
 ### Presentation:
