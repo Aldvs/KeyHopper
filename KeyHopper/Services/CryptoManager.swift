@@ -106,13 +106,25 @@ class CryptoManager {
         
     //MARK: - Main public properties
     //функция зашифровки открытой строки в закрытую
-    func encryptionFunc(block openText: String, master key: String) -> String {
+    func encryptionFunc(block openText: String, master key: String) throws -> String {
+        var flag = false
+        for i in 0...openText.count - 1 {
+            if openText[openText.index(openText.startIndex, offsetBy: i)] != "1" {
+                flag = true
+                break
+            }
+        }
+        
+        if !flag {
+            throw FieldError.numberError
+        }
+        
         let block = stringToBytes(for: openText)
         prepareKeys(master: key)
         let encryptedBlock = kuznechikEncryption(block: block)
         let resultString = getString(for: encryptedBlock)
-        
         return resultString
+        
     }
     
     //функция обратная зашифровке

@@ -19,7 +19,7 @@ class SHAManager {
         let data = Data(password.utf8)
         let digest = SHA256.hash(data: data)
         let hash = digest.compactMap { String(format: "%02x", $0)}.joined()
-        return hash
+        return hash 
     }
     
     private init() {}

@@ -11,6 +11,8 @@
 		8481B944283591850088FD0A /* DataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8481B943283591850088FD0A /* DataTableViewCell.swift */; };
 		8481B946283597860088FD0A /* SHAManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8481B945283597850088FD0A /* SHAManager.swift */; };
 		8490A1022837A44F0033B51F /* MasterKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490A1012837A44F0033B51F /* MasterKeyViewController.swift */; };
+		849338A528F6BA0000B8C4DC /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849338A428F6BA0000B8C4DC /* CollectionViewController.swift */; };
+		849338A728F6BB3200B8C4DC /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849338A628F6BB3200B8C4DC /* TableViewController.swift */; };
 		84C7416028394CA900BC33FD /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84C7415E28394CA900BC33FD /* DataModel.xcdatamodeld */; };
 		84F9B8C4282D3ADB009B97AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9B8C3282D3ADB009B97AC /* AppDelegate.swift */; };
 		84F9B8C6282D3ADB009B97AC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9B8C5282D3ADB009B97AC /* SceneDelegate.swift */; };
@@ -30,6 +32,8 @@
 		8481B943283591850088FD0A /* DataTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableViewCell.swift; sourceTree = "<group>"; };
 		8481B945283597850088FD0A /* SHAManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SHAManager.swift; sourceTree = "<group>"; };
 		8490A1012837A44F0033B51F /* MasterKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterKeyViewController.swift; sourceTree = "<group>"; };
+		849338A428F6BA0000B8C4DC /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		849338A628F6BB3200B8C4DC /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		84C7415F28394CA900BC33FD /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		84F9B8C0282D3ADB009B97AC /* KeyHopper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyHopper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84F9B8C3282D3ADB009B97AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -84,6 +88,8 @@
 				84F9B8D9282D3BD8009B97AC /* Storyboards */,
 				84F9B8D8282D3B67009B97AC /* SupportFiles */,
 				84C7415E28394CA900BC33FD /* DataModel.xcdatamodeld */,
+				849338A428F6BA0000B8C4DC /* CollectionViewController.swift */,
+				849338A628F6BB3200B8C4DC /* TableViewController.swift */,
 			);
 			path = KeyHopper;
 			sourceTree = "<group>";
@@ -228,6 +234,7 @@
 				84F9B8C4282D3ADB009B97AC /* AppDelegate.swift in Sources */,
 				84F9B8E1282D9E0A009B97AC /* SettingsTableViewController.swift in Sources */,
 				846BF98B283929220069BAA0 /* StorageManager.swift in Sources */,
+				849338A528F6BA0000B8C4DC /* CollectionViewController.swift in Sources */,
 				84F9B8E5282D9E7A009B97AC /* DataManager.swift in Sources */,
 				8481B946283597860088FD0A /* SHAManager.swift in Sources */,
 				84F9B8DD282D3C7E009B97AC /* UserDataModel.swift in Sources */,
@@ -236,6 +243,7 @@
 				8481B944283591850088FD0A /* DataTableViewCell.swift in Sources */,
 				84C7416028394CA900BC33FD /* DataModel.xcdatamodeld in Sources */,
 				84F9B8E7282D9E89009B97AC /* CryptoManager.swift in Sources */,
+				849338A728F6BB3200B8C4DC /* TableViewController.swift in Sources */,
 				8490A1022837A44F0033B51F /* MasterKeyViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

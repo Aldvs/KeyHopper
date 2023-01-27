@@ -43,6 +43,7 @@ class StorageManager {
 
     func save(_ account: String,_ password: String,_ hint: String,  completion: (DataEntity) -> Void) {
         let dataEntity = DataEntity(context: viewContext)
+        
         dataEntity.accountName = account
         dataEntity.password = password
         dataEntity.hint = hint

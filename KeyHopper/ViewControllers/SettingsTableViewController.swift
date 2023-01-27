@@ -7,6 +7,10 @@
 
 import UIKit
 
+enum FieldError: Error {
+    case numberError
+}
+
 class SettingsTableViewController: UITableViewController {
     
     //MARK: - IB Outlets
@@ -49,7 +53,7 @@ class SettingsTableViewController: UITableViewController {
         
         let accountText = accountTextField.text ?? ""
         let passwordText = passwordTextField.text ?? ""
-        saveButton.isEnabled = !accountText.isEmpty && !passwordText.isEmpty && passwordText.count == 32
+            saveButton.isEnabled = !accountText.isEmpty && !passwordText.isEmpty && passwordText.count == 32
     }
     
     private func updateUI(_ editMode: Bool) {
@@ -80,24 +84,39 @@ class SettingsTableViewController: UITableViewController {
            let password = passwordTextField.text,
            let hint = hintTextField.text {
             
-            let securedPassword = CryptoManager.shared.encryptionFunc(block: password, master: masterKey)
-            print("ЗАШИФРОВАННЫЙ ПАРОЛЬ ПОСЛЕ СОЗДАНИЯ НОВОГО ПАРОЛЯ (ТО ЧТО ВОШЛО В БД ПОСЛЕ СОЗДАНИЯ)")
-            print(securedPassword)
-            print(securedPassword.count)
-            StorageManager.shared.save(account, securedPassword, hint) { data in
-                data.accountName = account
-                data.password = securedPassword
-                data.hint = hint
+            do {
+                let securedPassword = try CryptoManager.shared.encryptionFunc(block: password, master: masterKey)
+                print("ЗАШИФРОВАННЫЙ ПАРОЛЬ ПОСЛЕ СОЗДАНИЯ НОВОГО ПАРОЛЯ (ТО ЧТО ВОШЛО В БД ПОСЛЕ СОЗДАНИЯ)")
+                print(securedPassword)
+                print(securedPassword.count)
+                StorageManager.shared.save(account, securedPassword, hint) { data in
+                    data.accountName = account
+                    data.password = securedPassword
+                    data.hint = hint
+                }
+            } catch FieldError.numberError {
+                showAlert(title: "Ошибка", message: "Одни единицы, поменяйте пароль")
+            } catch {
             }
             
         } else {
             
-            if let name = accountTextField.text, let password = passwordTextField.text, let master = keyList[0].key , let hint = hintTextField.text, let editedData = setupedData {
-                let encryptedPassword = CryptoManager.shared.encryptionFunc(block: password, master: master)
-                print("ЗАШИФРОВАННЫЙ ПАРОЛЬ ПОСЛЕ РЕДАКТИРОВАНИЯ:")
-                print(encryptedPassword)
-                print(encryptedPassword.count)
-                StorageManager.shared.edit(editedData, newName: name, newPassword: encryptedPassword, newHint: hint)
+            if let name = accountTextField.text,
+                let password = passwordTextField.text,
+                let master = keyList[0].key ,
+                let hint = hintTextField.text,
+                let editedData = setupedData {
+                
+                do {
+                    let encryptedPassword = try CryptoManager.shared.encryptionFunc(block: password, master: master)
+                    print("ЗАШИФРОВАННЫЙ ПАРОЛЬ ПОСЛЕ РЕДАКТИРОВАНИЯ:")
+                    print(encryptedPassword)
+                    print(encryptedPassword.count)
+                    StorageManager.shared.edit(editedData, newName: name, newPassword: encryptedPassword, newHint: hint)
+                } catch FieldError.numberError {
+                    showAlert(title: "Ошибка", message: "Одни единицы, поменяйте пароль")
+                } catch {
+                }
             }
         }
     }
@@ -147,6 +166,13 @@ extension SettingsTableViewController {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okAction)
+        present(alert, animated: true)
     }
 
 }

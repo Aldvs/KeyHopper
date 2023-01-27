@@ -16,7 +16,7 @@ class PasswordsTableViewController: UITableViewController {
     //MARK: - Lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Ваши пароли"
+        self.navigationItem.title = "Ваши пароли"
         self.navigationItem.leftBarButtonItem = editButtonItem
         editButtonItem.title = "Редактировать"
         
