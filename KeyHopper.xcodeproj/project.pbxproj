@@ -13,6 +13,8 @@
 		8490A1022837A44F0033B51F /* MasterKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8490A1012837A44F0033B51F /* MasterKeyViewController.swift */; };
 		849338A528F6BA0000B8C4DC /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849338A428F6BA0000B8C4DC /* CollectionViewController.swift */; };
 		849338A728F6BB3200B8C4DC /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849338A628F6BB3200B8C4DC /* TableViewController.swift */; };
+		84C431542AE2994E00B18FE5 /* InitialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C431532AE2994E00B18FE5 /* InitialView.swift */; };
+		84C431572AE29D4100B18FE5 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C431562AE29D4100B18FE5 /* InitialViewController.swift */; };
 		84C7416028394CA900BC33FD /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84C7415E28394CA900BC33FD /* DataModel.xcdatamodeld */; };
 		84F9B8C4282D3ADB009B97AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9B8C3282D3ADB009B97AC /* AppDelegate.swift */; };
 		84F9B8C6282D3ADB009B97AC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F9B8C5282D3ADB009B97AC /* SceneDelegate.swift */; };
@@ -34,6 +36,8 @@
 		8490A1012837A44F0033B51F /* MasterKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterKeyViewController.swift; sourceTree = "<group>"; };
 		849338A428F6BA0000B8C4DC /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		849338A628F6BB3200B8C4DC /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		84C431532AE2994E00B18FE5 /* InitialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialView.swift; sourceTree = "<group>"; };
+		84C431562AE29D4100B18FE5 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		84C7415F28394CA900BC33FD /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		84F9B8C0282D3ADB009B97AC /* KeyHopper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KeyHopper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84F9B8C3282D3ADB009B97AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +65,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84C431552AE2995B00B18FE5 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				84C431532AE2994E00B18FE5 /* InitialView.swift */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
 		84F9B8B7282D3ADB009B97AC = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +102,7 @@
 				84C7415E28394CA900BC33FD /* DataModel.xcdatamodeld */,
 				849338A428F6BA0000B8C4DC /* CollectionViewController.swift */,
 				849338A628F6BB3200B8C4DC /* TableViewController.swift */,
+				84C431552AE2995B00B18FE5 /* SwiftUI */,
 			);
 			path = KeyHopper;
 			sourceTree = "<group>";
@@ -136,6 +149,7 @@
 				84F9B8DE282D9C56009B97AC /* PasswordsTableViewController.swift */,
 				84F9B8E0282D9E0A009B97AC /* SettingsTableViewController.swift */,
 				8490A1012837A44F0033B51F /* MasterKeyViewController.swift */,
+				84C431562AE29D4100B18FE5 /* InitialViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -187,7 +201,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1320;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					84F9B8BF282D3ADB009B97AC = {
 						CreatedOnToolsVersion = 13.2.1;
@@ -231,11 +245,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				84F9B8C8282D3ADB009B97AC /* FormViewController.swift in Sources */,
+				84C431542AE2994E00B18FE5 /* InitialView.swift in Sources */,
 				84F9B8C4282D3ADB009B97AC /* AppDelegate.swift in Sources */,
 				84F9B8E1282D9E0A009B97AC /* SettingsTableViewController.swift in Sources */,
 				846BF98B283929220069BAA0 /* StorageManager.swift in Sources */,
 				849338A528F6BA0000B8C4DC /* CollectionViewController.swift in Sources */,
 				84F9B8E5282D9E7A009B97AC /* DataManager.swift in Sources */,
+				84C431572AE29D4100B18FE5 /* InitialViewController.swift in Sources */,
 				8481B946283597860088FD0A /* SHAManager.swift in Sources */,
 				84F9B8DD282D3C7E009B97AC /* UserDataModel.swift in Sources */,
 				84F9B8DF282D9C56009B97AC /* PasswordsTableViewController.swift in Sources */,
@@ -307,6 +323,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -368,6 +385,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
